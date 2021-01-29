@@ -1,0 +1,23 @@
+{
+    "system": {
+        "windows": "./drivers/windows/chromedriver.exe",
+        "linux": "./drivers/linux/chromedriver"
+    },
+    "api": {
+        "api_url": "http://foronoticias.net?api/threads/",
+        "api_key": "W7AHOxHzWkFNpuanEO8SzWTEJykJW-nJ",
+        "api_user": "1"
+    },
+    "europapress": [
+        {
+            "url": "https://www.europapress.es/nacional/",
+            "category": 7,
+            "tags": [
+                "foro",
+                "nacional",
+                "test_from_pyscript"
+            ],
+            "file": "europapress/nacional.json"
+        }
+    ]
+}
