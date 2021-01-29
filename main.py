@@ -19,6 +19,8 @@ def main(driver, api, source):
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--disable-dev-shm-usage')
 
     # Init web drivers
     browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
