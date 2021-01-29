@@ -2,7 +2,6 @@ import sys
 import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from request import Request
 from thread import Thread
 from europapress.scrapper import Scrapper as ep_Scrapper
