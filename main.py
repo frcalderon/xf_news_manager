@@ -2,6 +2,7 @@ import sys
 import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 from request import Request
 from thread import Thread
 from europapress.scrapper import Scrapper as ep_Scrapper
@@ -21,8 +22,8 @@ def main(driver, api, source):
     chrome_options.add_argument('--disable-dev-shm-usage')
 
     # Init web drivers
-    browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
-    article_browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
+    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    article_browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
     print('Getting articles and publishing in forum...')
 
