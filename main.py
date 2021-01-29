@@ -65,7 +65,7 @@ if __name__ == "__main__":
         config = json.load(file)
 
     # Init configs
-    driver_config = config['system']['windows']
+    driver_config = config['system']['linux']
     api_config = config['api']
     source_config = config[source_argument]
 
