@@ -18,6 +18,51 @@
                 "test_from_pyscript"
             ],
             "file": "europapress/nacional.json"
+        },
+        {
+            "url": "https://www.europapress.es/internacional/",
+            "category": 8,
+            "tags": [
+                "foro",
+                "internacional"
+            ],
+            "file": "europapress/internacional.json"
+        },
+        {
+            "url": "https://www.europapress.es/economia/",
+            "category": 9,
+            "tags": [
+                "foro",
+                "economia"
+            ],
+            "file": "europapress/economia.json"
+        },
+        {
+            "url": "https://www.europapress.es/deportes/",
+            "category": 10,
+            "tags": [
+                "foro",
+                "deportes"
+            ],
+            "file": "europapress/deportes.json"
+        },
+        {
+            "url": "https://www.europapress.es/sociedad/",
+            "category": 11,
+            "tags": [
+                "foro",
+                "sociedad"
+            ],
+            "file": "europapress/sociedad.json"
+        },
+        {
+            "url": "https://www.europapress.es/ciencia/",
+            "category": 12,
+            "tags": [
+                "foro",
+                "ciencia"
+            ],
+            "file": "europapress/ciencia.json"
         }
     ]
 }
