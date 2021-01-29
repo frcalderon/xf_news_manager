@@ -19,11 +19,10 @@ def main(driver, api, source):
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
 
     # Init web drivers
-    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-    article_browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
+    article_browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
 
     print('Getting articles and publishing in forum...')
 
