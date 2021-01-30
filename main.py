@@ -19,8 +19,8 @@ def main(driver, api, source):
     options.add_argument('--headless')
 
     # Init web drivers
-    browser = webdriver.Firefox(executable_path='/root/geckodriver', options=options)
-    article_browser = webdriver.Firefox(executable_path='/root/geckodriver', options=options)
+    browser = webdriver.Firefox(executable_path='/root', options=options)
+    article_browser = webdriver.Firefox(executable_path='/root', options=options)
     
     browser.get("https://pythonbasics.org")
     print(browser.getTitle())
