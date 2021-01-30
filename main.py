@@ -1,7 +1,7 @@
 import sys
 import json
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 from request import Request
 from thread import Thread
 from europapress.scrapper import Scrapper as ep_Scrapper
@@ -16,11 +16,11 @@ def main(driver, api, source):
 
     # Config web driver
     options = Options()
-    options.add_argument('--headless')
+    options.headless = True
 
     # Init web drivers
-    browser = webdriver.Firefox(executable_path='/root/geckodriver', options=options)
-    article_browser = webdriver.Firefox(executable_path='/root/geckodriver', options=options)
+    browser = webdriver.Chrome(executable_path=driver, options=options)
+    article_browser = webdriver.Chrome(executable_path=driver, options=options)
     
     browser.get("https://pythonbasics.org")
     print(browser.getTitle())
