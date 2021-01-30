@@ -1,7 +1,7 @@
 import sys
 import json
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from request import Request
 from thread import Thread
 from europapress.scrapper import Scrapper as ep_Scrapper
@@ -15,16 +15,17 @@ def main(driver, api, source):
     print('Config drivers...')
 
     # Config web driver
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--disable-dev-shm-usage')
+    options = Options()
+    options.add_argument('--headless')
 
     # Init web drivers
-    browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
-    article_browser = webdriver.Chrome(executable_path=driver, options=chrome_options)
-
+    browser = webdriver.Firefox(options=options)
+    article_browser = webdriver.Firefox(options=options)
+    
+    browser.get("https://pythonbasics.org")
+    print(browser.getTitle())
+    
+    """
     print('Getting articles and publishing in forum...')
 
     # Init Scrapper with URL and path
@@ -57,7 +58,7 @@ def main(driver, api, source):
         article_list.update()
 
     print('Finished!')
-
+    """
 
 if __name__ == "__main__":
     # Get first argument as source
