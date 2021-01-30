@@ -23,7 +23,7 @@ def main(driver, api, source):
     article_browser = webdriver.Chrome(executable_path=driver, options=options)
     
     browser.get("https://pythonbasics.org")
-    print(browser.getTitle())
+    print(browser.title)
     
     """
     print('Getting articles and publishing in forum...')
