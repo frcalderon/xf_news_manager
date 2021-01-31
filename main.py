@@ -24,10 +24,6 @@ def main(driver, api, source):
     browser = webdriver.Chrome(executable_path=driver, options=options)
     article_browser = webdriver.Chrome(executable_path=driver, options=options)
     
-    browser.get("https://pythonbasics.org")
-    print(browser.title)
-    
-    """
     print('Getting articles and publishing in forum...')
 
     # Init Scrapper with URL and path
@@ -60,7 +56,6 @@ def main(driver, api, source):
         article_list.update()
 
     print('Finished!')
-    """
 
 if __name__ == "__main__":
     # Get first argument as source
