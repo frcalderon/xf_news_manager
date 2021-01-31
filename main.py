@@ -16,7 +16,9 @@ def main(driver, api, source):
 
     # Config web driver
     options = Options()
-    options.headless = True
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
 
     # Init web drivers
     browser = webdriver.Chrome(executable_path=driver, options=options)
