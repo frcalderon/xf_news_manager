@@ -16,9 +16,14 @@ def main(driver, api, source):
 
     # Config web driver
     options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument("start-maximized");
+    options.add_argument("enable-automation");
+    options.add_argument("--headless");
+    options.add_argument("--no-sandbox");
+    options.add_argument("--disable-infobars");
+    options.add_argument("--disable-dev-shm-usage");
+    options.add_argument("--disable-browser-side-navigation");
+    options.add_argument("--disable-gpu");
 
     # Init web drivers
     browser = webdriver.Chrome(executable_path=driver, options=options)
