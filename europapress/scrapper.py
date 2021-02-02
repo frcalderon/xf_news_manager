@@ -110,41 +110,6 @@ class Scrapper:
             link = article_item.get_attribute('href')
             self.link_list.append(link)
 
-    """
-    def get_article_from_primary_article(self):
-        article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[1]/div[2]')
-        article_item = article_root.find_element_by_css_selector(
-            'article.primaria div.home-articulo-interior h2.titulo-principal a'
-        )
-        link = article_item.get_attribute('href')
-        self.article_browser.get(link)
-
-        article = self.create_article(link)
-        return article
-
-    def get_articles_from_secondary_articles(self):
-        articles = []
-
-        article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[1]/div[2]')
-        article_items = article_root.find_elements_by_css_selector(
-            'article.secundaria div.home-articulo-interior div.home-articulo-info h2.articulo-titulo a'
-        )
-        for item in article_items:
-            link = item.get_attribute('href')
-            self.article_browser.get(link)
-            articles.append(self.create_article(link))
-
-        return articles
-
-    def get_article_from_xpath(self, xpath):
-        article_item = self.browser.find_element_by_xpath(xpath)
-        link = article_item.get_attribute('href')
-        self.article_browser.get(link)
-
-        article = self.create_article(link)
-        return article
-    """
-
     def create_article(self, link):
         try:
             title = self.article_browser.find_element_by_xpath('//*[@id="ContenedorDocNomral"]/div[2]/div/h1').text
@@ -174,8 +139,6 @@ class Scrapper:
         else:
             text = ''
 
-        print('TEXT:\n' + text)
-
         article = {
             'link': link,
             'title': title,
@@ -200,17 +163,5 @@ class Scrapper:
             self.article_browser.get(link)
             articles_list.add_article(self.create_article(link))
 
-        """
-        self.browser.get(self.url)
-
-        articles_list.add_article(self.get_article_from_primary_article())
-
-        for article in self.get_articles_from_secondary_articles():
-            articles_list.add_article(article)
-
-        for xpath in self.xpath_list:
-            articles_list.add_article(self.get_article_from_xpath(xpath))
-        """
-
-        # articles_list.update()
+        articles_list.update()
         return articles_list
