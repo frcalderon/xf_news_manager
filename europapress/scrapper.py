@@ -84,8 +84,8 @@ class Scrapper:
 
     def init_link_list(self):
         self.init_link_primary()
-        # self.init_link_secondary()
-        # self.init_link_from_xpath_list()
+        self.init_link_secondary()
+        self.init_link_from_xpath_list()
 
     def init_link_primary(self):
         article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[1]/div[2]')
