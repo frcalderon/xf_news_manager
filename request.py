@@ -13,6 +13,7 @@ class Request:
             "XF-Api-Key": self.config['api_key'],
             "XF-Api-User": self.config['api_user']
         }
+
         response = requests.post(url, headers=headers, data=self.data)
 
         if response.status_code == 200:
