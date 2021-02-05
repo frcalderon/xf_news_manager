@@ -53,7 +53,6 @@ def main(driver, api, source):
                 thread = Thread(article)
                 data = thread.convert_article_to_thread(category_source)
 
-                """
                 # Init request with config and data to send
                 request = Request(api, data)
 
@@ -61,7 +60,6 @@ def main(driver, api, source):
                 if request.send_request():
                     # If response is 200 OK mark article as posted
                     article_list.mark_article_as_posted(article)
-                """
 
             # Update articles.json
             article_list.update()
