@@ -3,66 +3,103 @@
         "windows": "./drivers/windows/chromedriver.exe",
         "linux": "./drivers/linux/chromedriver"
     },
-    "api": {
-        "api_url": "http://foronoticias.net?api/threads/",
-        "api_key": "W7AHOxHzWkFNpuanEO8SzWTEJykJW-nJ",
-        "api_user": "1"
+    "foronoticias": {
+        "api": {
+            "api_url": "http://foronoticias.net?api/threads/",
+            "api_key": "W7AHOxHzWkFNpuanEO8SzWTEJykJW-nJ",
+            "api_user": "1"
+        },
+        "categories": [
+            {
+                "url": "https://www.europapress.es/nacional/",
+                "category": 7,
+                "tags": [
+                    "foro",
+                    "nacional",
+                    "test_from_pyscript"
+                ],
+                "file": "europapress/nacional.json",
+                "scrapper": "europapress"
+            },
+            {
+                "url": "https://www.europapress.es/internacional/",
+                "category": 8,
+                "tags": [
+                    "foro",
+                    "internacional"
+                ],
+                "file": "europapress/internacional.json",
+                "scrapper": "europapress"
+            },
+            {
+                "url": "https://www.europapress.es/economia/",
+                "category": 9,
+                "tags": [
+                    "foro",
+                    "economia"
+                ],
+                "file": "europapress/economia.json",
+                "scrapper": "europapress"
+            },
+            {
+                "url": "https://www.europapress.es/deportes/",
+                "category": 10,
+                "tags": [
+                    "foro",
+                    "deportes"
+                ],
+                "file": "europapress/deportes.json",
+                "scrapper": "europapress"
+            },
+            {
+                "url": "https://www.europapress.es/sociedad/",
+                "category": 11,
+                "tags": [
+                    "foro",
+                    "sociedad"
+                ],
+                "file": "europapress/sociedad.json",
+                "scrapper": "europapress"
+            },
+            {
+                "url": "https://www.europapress.es/ciencia/",
+                "category": 12,
+                "tags": [
+                    "foro",
+                    "ciencia"
+                ],
+                "file": "europapress/ciencia.json",
+                "scrapper": "europapress"
+            },
+            {
+                "url": "https://www.xataka.com/",
+                "category": 14,
+                "tags": [
+                    "foro",
+                    "tecnologia"
+                ],
+                "file": "xataka/tecnologia.json",
+                "scrapper": "xataka"
+            }
+        ]
     },
-    "europapress": [
-        {
-            "url": "https://www.europapress.es/nacional/",
-            "category": 7,
-            "tags": [
-                "foro",
-                "nacional",
-                "test_from_pyscript"
-            ],
-            "file": "europapress/nacional.json"
+    "forotaxi": {
+        "api": {
+            "api_url": "http://forotaxi.org?api/threads/",
+            "api_key": "W7AHOxHzWkFNpuanEO8SzWTEJykJW-nJ",
+            "api_user": "1"
         },
-        {
-            "url": "https://www.europapress.es/internacional/",
-            "category": 8,
-            "tags": [
-                "foro",
-                "internacional"
-            ],
-            "file": "europapress/internacional.json"
-        },
-        {
-            "url": "https://www.europapress.es/economia/",
-            "category": 9,
-            "tags": [
-                "foro",
-                "economia"
-            ],
-            "file": "europapress/economia.json"
-        },
-        {
-            "url": "https://www.europapress.es/deportes/",
-            "category": 10,
-            "tags": [
-                "foro",
-                "deportes"
-            ],
-            "file": "europapress/deportes.json"
-        },
-        {
-            "url": "https://www.europapress.es/sociedad/",
-            "category": 11,
-            "tags": [
-                "foro",
-                "sociedad"
-            ],
-            "file": "europapress/sociedad.json"
-        },
-        {
-            "url": "https://www.europapress.es/ciencia/",
-            "category": 12,
-            "tags": [
-                "foro",
-                "ciencia"
-            ],
-            "file": "europapress/ciencia.json"
-        }
-    ]
+        "categories": [
+            {
+                "url": "https://www.gacetadeltaxi.com/",
+                "category": 5,
+                "tags": [
+                    "foro",
+                    "taxi"
+                ],
+                "file": "gacetadeltaxi/noticias.json",
+                "scrapper": "gacetadeltaxi"
+            }
+        ]
+    }
 }

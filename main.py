@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.options import Options
 from request import Request
 from thread import Thread
 from europapress.scrapper import Scrapper as ep_Scrapper
+from xataka.scrapper import Scrapper as x_Scrapper
+from gacetadeltaxi.scrapper import Scrapper as gt_Scrapper
 
 
 def main(driver, api, source):
@@ -25,35 +27,48 @@ def main(driver, api, source):
     print('Getting articles and publishing in forum...')
 
     # Init Scrapper with URL and path
-    for category_source in source:
+    for category_source in source['categories']:
         # print(category_source)
 
         print('\tURL: ' + category_source['url'])
 
-        scrapper = ep_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
-        article_list = scrapper.get_articles()
+        scrapper = None
 
-        # Get no posted articles from article list
-        no_posted_articles = article_list.get_no_posted_articles()
+        if category_source['scrapper'] == 'europapress':
+            scrapper = ep_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
+        elif category_source['scrapper'] == 'xataka':
+            scrapper = x_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
+        elif category_source['scrapper'] == 'gacetadeltaxi':
+            scrapper = gt_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
 
-        # Loop through all articles in no posted articles list
-        for article in no_posted_articles:
-            # Convert articles to threads with template
-            thread = Thread(article)
-            data = thread.convert_article_to_thread(category_source)
+        if scrapper is not None:
+            article_list = scrapper.get_articles()
 
-            # Init request with config and data to send
-            request = Request(api, data)
+            # Get no posted articles from article list
+            no_posted_articles = article_list.get_no_posted_articles()
 
-            # Send POST request to create thread
-            if request.send_request():
-                # If response is 200 OK mark article as posted
-                article_list.mark_article_as_posted(article)
+            # Loop through all articles in no posted articles list
+            for article in no_posted_articles:
+                # Convert articles to threads with template
+                thread = Thread(article)
+                data = thread.convert_article_to_thread(category_source)
 
-        # Update articles.json
-        article_list.update()
+                """
+                # Init request with config and data to send
+                request = Request(api, data)
 
-    print('Finished!')
+                # Send POST request to create thread
+                if request.send_request():
+                    # If response is 200 OK mark article as posted
+                    article_list.mark_article_as_posted(article)
+                """
+
+            # Update articles.json
+            article_list.update()
+
+            print('Finished!')
+        else:
+            print('Scrapper could not be initialized!')
 
 
 if __name__ == "__main__":
@@ -66,7 +81,7 @@ if __name__ == "__main__":
 
     # Init configs
     driver_config = config['system']['windows']
-    api_config = config['api']
     source_config = config[source_argument]
+    api_config = source_config['api']
 
     main(driver_config, api_config, source_config)

@@ -62,23 +62,23 @@ class Scrapper:
         self.browser = browser
         self.article_browser = article_browser
         self.xpath_list = [
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[1]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[2]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[3]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[4]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[5]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[6]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[7]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[8]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[9]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[10]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[11]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[12]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[13]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[14]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[15]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[16]/div/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[17]/div/div/h2/a'
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[2]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[3]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[4]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[5]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[6]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[7]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[8]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[9]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[10]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[11]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[12]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[13]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[14]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[15]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[16]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[17]/div[1]/div/h2/a',
+            '//*[@id="ContenidoCentralNoticiasSticky"]/article[18]/div[1]/div/h2/a'
         ]
         self.link_list = []
 
@@ -88,15 +88,15 @@ class Scrapper:
         self.init_link_from_xpath_list()
 
     def init_link_primary(self):
-        article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[1]/div[2]')
+        article_root = self.browser.find_element_by_xpath('//*[@id="ContenidoCentralNoticiasSticky"]')
         article_item = article_root.find_element_by_css_selector(
-            'article.primaria div.home-articulo-interior h2.titulo-principal a'
+            'article.primaria div.home-articulo-interior div h2 a'
         )
         link = article_item.get_attribute('href')
         self.link_list.append(link)
 
     def init_link_secondary(self):
-        article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[1]/div[2]')
+        article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[2]/div[1]/div[2]/div')
         article_items = article_root.find_elements_by_css_selector(
             'article.secundaria div.home-articulo-interior div.home-articulo-info h2.articulo-titulo a'
         )
@@ -159,7 +159,6 @@ class Scrapper:
         self.init_link_list()
 
         for index, link in enumerate(self.link_list):
-            print('Article ' + str(index) + ': ' + link)
             self.article_browser.get(link)
             articles_list.add_article(self.create_article(link))
 
