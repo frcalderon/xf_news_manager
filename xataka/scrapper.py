@@ -61,7 +61,7 @@ class Scrapper:
         self.browser = browser
         self.article_browser = article_browser
         self.xpath_list = [
-            '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[1]/div[2]/header/h2/a',
+            '//*[@id="featuredContainer"]/div/article/header/h2/a',
             '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[2]/div[2]/header/h2/a',
             '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[3]/div[2]/header/h2/a',
             '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[4]/div[2]/header/h2/a',
