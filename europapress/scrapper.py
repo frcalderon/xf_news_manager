@@ -5,6 +5,7 @@ from article_list import ArticleList
 
 
 def clean_input(input_dirty):
+
     input_splitted = input_dirty.splitlines()
 
     # Clean invalid tags from input
@@ -43,13 +44,15 @@ def clean_input(input_dirty):
             elif '<h2' in tag:
                 line = line.replace(tag, '[HEADING=2]')
             elif '</h2' in tag:
-                line = line.replace(tag, '[/HEADING]')
+                line = line.replace(tag, '[/HEADING]\n\n')
+            elif '</p' in tag:
+                line = line.replace(tag, '\n\n')
             else:
                 line = line.replace(tag, '')
 
         line = line.strip()
 
-        if line and all(invalid not in line for invalid in ['EUROPA PRESS']):
+        if line:
             output.append(line)
 
     return '\n\n'.join(output)

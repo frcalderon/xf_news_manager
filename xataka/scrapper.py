@@ -60,40 +60,29 @@ class Scrapper:
         self.file = file
         self.browser = browser
         self.article_browser = article_browser
-        self.xpath_list = [
-            '//*[@id="featuredContainer"]/div/article/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[2]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[3]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[2]/div/div/div/article[4]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[3]/div/div/div/article[1]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[3]/div/div/div/article[2]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[3]/div/div/div/article[3]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[3]/div/div/div/article[4]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[3]/div/div/div/article[5]/div[2]/header/h2/a',
-            '/html/body/div[2]/div/div[2]/div/main/section[3]/div/div/div/article[6]/div[2]/header/h2/a'
-        ]
         self.link_list = []
 
     def init_link_from_xpath_list(self):
+        first_link = self.browser.find_element_by_css_selector('h2.poster-title a').get_attribute('href')
+        if 'https://www.xataka.com/' in first_link:
+            self.link_list.append(first_link)
+
+        elements = self.browser.find_elements_by_css_selector('h2.abstract-title a')
+        for element in elements:
+            link = element.get_attribute('href')
+            if 'https://www.xataka.com/' in link:
+                self.link_list.append(link)
+
+        """
         for xpath in self.xpath_list:
             article_item = self.browser.find_element_by_xpath(xpath)
             link = article_item.get_attribute('href')
             if 'https://www.xataka.com/' in link:
                 self.link_list.append(link)
+        """
 
     def create_article(self, link):
-        title = ''
-        title_list = self.article_browser.find_elements_by_xpath(
-            '/html/body/div[2]/div/div[3]/div/main/article/div/div[1]/div[1]/header/div[2]/div/h1/span'
-        )
-        if title_list:
-            title = title_list[0].text
-        else:
-            title_list = self.article_browser.find_elements_by_xpath(
-                '/html/body/div[2]/div/div[3]/div/main/article/div[1]/header/h1/span'
-            )
-            if title_list:
-                title = title_list[0].text
+        title = self.article_browser.find_element_by_css_selector('h1 span').text
 
         image = ''
         image_list = self.article_browser.find_elements_by_xpath(
@@ -107,6 +96,18 @@ class Scrapper:
                 )
             if image_list:
                 image = image_list[0].get_attribute('src')
+            else:
+                image_list = self.article_browser.find_elements_by_xpath(
+                    '/html/body/div[2]/div/div[2]/div/main/article/div[2]/div[1]/div[1]/header/div/div[1]/img'
+                )
+                if image_list:
+                    image = image_list[0].get_attribute('src')
+                else:
+                    image_list = self.article_browser.find_elements_by_xpath(
+                        '/html/body/div[2]/div/div[3]/div/main/article/div[3]/div[1]/div[1]/header/div/div[1]/img'
+                    )
+                    if image_list:
+                        image = image_list[0].get_attribute('src')
 
         try:
             article_body = self.article_browser.find_element_by_css_selector('div.blob.js-post-images-container')\
@@ -123,7 +124,7 @@ class Scrapper:
             'link': link,
             'title': title,
             'image': image,
-            'text': text,
+            'text': text.encode('cp850', 'replace').decode('cp850'),
             'date': datetime.now().strftime("%d/%m/%Y-%H:%M:%S"),
             'posted': False
         }
@@ -137,7 +138,7 @@ class Scrapper:
         self.browser.get(self.url)
 
         self.init_link_from_xpath_list()
-
+        
         for index, link in enumerate(self.link_list):
             self.article_browser.get(link)
             articles_list.add_article(self.create_article(link))

@@ -28,10 +28,13 @@ class ArticleList:
 
     def update(self):
         with open(self.path, 'w') as file:
+            json.dump({'articles': self.article_list}, file, ensure_ascii=False, indent=4, separators=(',', ': '))
+            """
             try:
                 json.dump({'articles': self.article_list}, file, ensure_ascii=False, indent=4, separators=(',', ': '))
             except:
                 json.dump({'articles': []}, file, ensure_ascii=False, indent=4, separators=(',', ': '))
+            """
 
     def get_no_posted_articles(self):
         return [article for article in self.article_list if not article['posted']]

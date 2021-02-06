@@ -15,8 +15,7 @@
                 "category": 7,
                 "tags": [
                     "foro",
-                    "nacional",
-                    "test_from_pyscript"
+                    "nacional"
                 ],
                 "file": "europapress/nacional.json",
                 "scrapper": "europapress"

@@ -64,9 +64,9 @@ def main(driver, api, source):
             # Update articles.json
             article_list.update()
 
-            print('Finished!')
+            print('\tFinished!')
         else:
-            print('Scrapper could not be initialized!')
+            print('\tScrapper could not be initialized!')
 
 
 if __name__ == "__main__":
