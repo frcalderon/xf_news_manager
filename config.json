@@ -84,14 +84,14 @@
     },
     "forotaxi": {
         "api": {
-            "api_url": "http://forotaxi.org?api/threads/",
-            "api_key": "W7AHOxHzWkFNpuanEO8SzWTEJykJW-nJ",
+            "api_url": "https://forotaxi.org?api/threads/",
+            "api_key": "OdxcWav-xNm5q0z4D5RoITRmIN7igJMR",
             "api_user": "1"
         },
         "categories": [
             {
                 "url": "https://www.gacetadeltaxi.com/",
-                "category": 5,
+                "category": 23,
                 "tags": [
                     "foro",
                     "taxi"
