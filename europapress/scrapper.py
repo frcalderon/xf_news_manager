@@ -146,7 +146,7 @@ class Scrapper:
             'link': link,
             'title': title,
             'image': image,
-            'text': text,
+            'text': f'{text}\n\nFuente: {link}',
             'date': datetime.now().strftime("%d/%m/%Y-%H:%M:%S"),
             'posted': False
         }

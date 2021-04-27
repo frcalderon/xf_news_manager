@@ -7,6 +7,8 @@ from thread import Thread
 from europapress.scrapper import Scrapper as ep_Scrapper
 from xataka.scrapper import Scrapper as x_Scrapper
 from gacetadeltaxi.scrapper import Scrapper as gt_Scrapper
+from electrobuzz.scrapper import Scrapper as eb_Scrapper
+from europapresstaxi.scrapper import Scrapper as eptaxi_Scrapper
 
 
 def main(driver, api, source):
@@ -40,10 +42,14 @@ def main(driver, api, source):
             scrapper = x_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
         elif category_source['scrapper'] == 'gacetadeltaxi':
             scrapper = gt_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
+        elif category_source['scrapper'] == 'electrobuzz':
+            scrapper = eb_Scrapper(category_source['url'], category_source['file'], browser)
+        elif category_source['scrapper'] == 'europapress-taxi':
+            scrapper = eptaxi_Scrapper(category_source['url'], category_source['file'], browser)
 
         if scrapper is not None:
             article_list = scrapper.get_articles()
-
+            
             # Get no posted articles from article list
             no_posted_articles = article_list.get_no_posted_articles()
 
@@ -60,7 +66,7 @@ def main(driver, api, source):
                 if request.send_request():
                     # If response is 200 OK mark article as posted
                     article_list.mark_article_as_posted(article)
-
+            
             # Update articles.json
             article_list.update()
 

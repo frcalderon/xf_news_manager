@@ -3,16 +3,16 @@
         "windows": "./drivers/windows/chromedriver.exe",
         "linux": "./drivers/linux/chromedriver"
     },
-    "foronoticias": {
+    "forotaxi": {
         "api": {
-            "api_url": "http://foronoticias.net?api/threads/",
-            "api_key": "W7AHOxHzWkFNpuanEO8SzWTEJykJW-nJ",
+            "api_url": "https://forotaxi.org?api/threads/",
+            "api_key": "XBYAPDf50NIRUsXdAwwYjbgLvF4zWd5b",
             "api_user": "1"
         },
         "categories": [
             {
                 "url": "https://www.europapress.es/nacional/",
-                "category": 7,
+                "category": 22,
                 "tags": [
                     "foro",
                     "nacional"
@@ -22,7 +22,7 @@
             },
             {
                 "url": "https://www.europapress.es/internacional/",
-                "category": 8,
+                "category": 22,
                 "tags": [
                     "foro",
                     "internacional"
@@ -31,73 +31,54 @@
                 "scrapper": "europapress"
             },
             {
-                "url": "https://www.europapress.es/economia/",
-                "category": 9,
-                "tags": [
-                    "foro",
-                    "economia"
-                ],
-                "file": "europapress/economia.json",
-                "scrapper": "europapress"
-            },
-            {
-                "url": "https://www.europapress.es/deportes/",
-                "category": 10,
-                "tags": [
-                    "foro",
-                    "deportes"
-                ],
-                "file": "europapress/deportes.json",
-                "scrapper": "europapress"
-            },
-            {
-                "url": "https://www.europapress.es/sociedad/",
-                "category": 11,
-                "tags": [
-                    "foro",
-                    "sociedad"
-                ],
-                "file": "europapress/sociedad.json",
-                "scrapper": "europapress"
-            },
-            {
-                "url": "https://www.europapress.es/ciencia/",
-                "category": 12,
-                "tags": [
-                    "foro",
-                    "ciencia"
-                ],
-                "file": "europapress/ciencia.json",
-                "scrapper": "europapress"
-            },
-            {
-                "url": "https://www.xataka.com/",
-                "category": 14,
-                "tags": [
-                    "foro",
-                    "tecnologia"
-                ],
-                "file": "xataka/tecnologia.json",
-                "scrapper": "xataka"
-            }
-        ]
-    },
-    "forotaxi": {
-        "api": {
-            "api_url": "https://forotaxi.org?api/threads/",
-            "api_key": "OdxcWav-xNm5q0z4D5RoITRmIN7igJMR",
-            "api_user": "1"
-        },
-        "categories": [
-            {
-                "url": "https://www.gacetadeltaxi.com/",
-                "category": 23,
+                "url": "https://www.europapress.es/temas/taxi/",
+                "category": 24,
                 "tags": [
                     "foro",
                     "taxi"
                 ],
-                "file": "gacetadeltaxi/noticias.json",
-                "scrapper": "gacetadeltaxi"
+                "file": "europapresstaxi/noticias.json",
+                "scrapper": "europapress-taxi"
+            }
+        ]
+    },
+    "djclub": {
+        "api": {
+            "api_url": "https://djclub.net?api/threads/",
+            "api_key": "kPIpZN8p6ke18YZ5ZFiYnUY9kHL-DDQJ",
+            "api_user": "1"
+        },
+        "categories": [
+            {
+                "url": "https://www.electrobuzz.net/category/mp3-albums-download/",
+                "category": 45,
+                "tags": [
+                    "foro",
+                    "packs",
+                    "albums"
+                ],
+                "file": "electrobuzz/packs.json",
+                "scrapper": "electrobuzz"
+            },
+            {
+                "url": "https://www.electrobuzz.net/category/lossless/",
+                "category": 49,
+                "tags": [
+                    "foro",
+                    "lossless"
+                ],
+                "file": "electrobuzz/lossless.json",
+                "scrapper": "electrobuzz"
+            },
+            {
+                "url": "https://www.electrobuzz.net/category/djs-chart/",
+                "category": 56,
+                "tags": [
+                    "foro",
+                    "charts"
+                ],
+                "file": "electrobuzz/charts.json",
+                "scrapper": "electrobuzz"
             }
         ]
     }

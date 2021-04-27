@@ -7,9 +7,7 @@ class Thread:
         [IMG width="500px"]%(image)s[/IMG]
         
         %(text)s
-        
-        Fuente: %(link)s
-        """ % {'image': self.article['image'], 'text': self.article['text'], 'link': self.article['link']}
+        """ % {'image': self.article['image'], 'text': self.article['text']}
 
         return {
             'node_id': source['category'],
