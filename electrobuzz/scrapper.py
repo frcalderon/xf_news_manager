@@ -27,10 +27,27 @@ class Scrapper:
         return links
 
     def create_article(self, link):
+        title = ''
+        image = ''
+        playlist = []
+        download_link = ''
+
         try:
             title = self.browser.find_element_by_css_selector('h1.entry-title').text
+        except Exception:
+            print('An error has ocurred')
+        
+        try:
             image = self.browser.find_element_by_css_selector('div.entry-content p img').get_attribute('src')
+        except Exception:
+            print('An error has ocurred')
+        
+        try:
             playlist = self.browser.find_elements_by_css_selector('div.entry-content ol li')
+        except Exception:
+            print('An error has ocurred')
+        
+        try:
             download_link = self.browser.find_element_by_css_selector('div.entry-content div.well a').get_attribute('href')
         except Exception:
             print('An error has ocurred')
