@@ -37,7 +37,7 @@ def main(driver, api, source):
         scrapper = None
 
         if category_source['scrapper'] == 'europapress':
-            scrapper = ep_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
+            scrapper = ep_Scrapper(category_source['url'], category_source['file'], browser)
         elif category_source['scrapper'] == 'xataka':
             scrapper = x_Scrapper(category_source['url'], category_source['file'], browser, article_browser)
         elif category_source['scrapper'] == 'gacetadeltaxi':
@@ -52,7 +52,7 @@ def main(driver, api, source):
             
             # Get no posted articles from article list
             no_posted_articles = article_list.get_no_posted_articles()
-
+            
             # Loop through all articles in no posted articles list
             for article in no_posted_articles:
                 # Convert articles to threads with template
@@ -69,7 +69,7 @@ def main(driver, api, source):
             
             # Update articles.json
             article_list.update()
-
+            
             print('\tFinished!')
         else:
             print('\tScrapper could not be initialized!')

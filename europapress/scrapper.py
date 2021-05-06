@@ -1,4 +1,5 @@
 import re
+import time
 from datetime import datetime
 from selenium.common.exceptions import NoSuchElementException
 from article_list import ArticleList
@@ -59,88 +60,54 @@ def clean_input(input_dirty):
 
 
 class Scrapper:
-    def __init__(self, url, file, browser, article_browser):
+    def __init__(self, url, file, browser):
         self.url = url
         self.file = file
         self.browser = browser
-        self.article_browser = article_browser
-        self.xpath_list = [
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[2]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[3]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[4]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[5]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[6]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[7]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[8]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[9]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[10]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[11]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[12]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[13]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[14]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[15]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[16]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[17]/div[1]/div/h2/a',
-            '//*[@id="ContenidoCentralNoticiasSticky"]/article[18]/div[1]/div/h2/a'
-        ]
-        self.link_list = []
 
-    def init_link_list(self):
-        self.init_link_primary()
-        self.init_link_secondary()
-        self.init_link_from_xpath_list()
+    def init_link(self):
+        links = []
+        try:
+            elements = self.browser.find_elements_by_css_selector(
+                'article div.home-articulo-interior div.home-articulo-info h2 a'
+            )
 
-    def init_link_primary(self):
-        article_root = self.browser.find_element_by_xpath('//*[@id="ContenidoCentralNoticiasSticky"]')
-        article_item = article_root.find_element_by_css_selector(
-            'article.primaria div.home-articulo-interior div h2 a'
-        )
-        link = article_item.get_attribute('href')
-        self.link_list.append(link)
-
-    def init_link_secondary(self):
-        article_root = self.browser.find_element_by_xpath('//*[@id="aspnetForm"]/div[4]/div[2]/div[1]/div[2]/div')
-        article_items = article_root.find_elements_by_css_selector(
-            'article.secundaria div.home-articulo-interior div.home-articulo-info h2.articulo-titulo a'
-        )
-        for item in article_items:
-            link = item.get_attribute('href')
-            self.link_list.append(link)
-
-    def init_link_from_xpath_list(self):
-        for xpath in self.xpath_list:
-            article_item = self.browser.find_element_by_xpath(xpath)
-            link = article_item.get_attribute('href')
-            self.link_list.append(link)
+            for element in elements:
+                links.append(element.get_attribute('href'))
+        except Exception:
+            print('Can not init articles link list')
+        
+        return links
 
     def create_article(self, link):
-        try:
-            title = self.article_browser.find_element_by_xpath('//*[@id="ContenedorDocNomral"]/div[2]/div/h1').text
-        except NoSuchElementException:
-            title = ''
-
-        try:
-            image = self.article_browser.find_element_by_xpath('//*[@id="fotoPrincipalNoticia"]').get_attribute('src')
-        except NoSuchElementException:
-            image = ''
-
+        title = ''
+        image = ''
         article_body = ''
-        article_body_list = self.article_browser.find_elements_by_xpath('//*[@id="CuerpoNoticiav2"]')
-        if article_body_list:
-            article_body = article_body_list[0].get_attribute('innerHTML')
-        else:
-            article_body_list = self.article_browser.find_elements_by_xpath('//*[@id="CuerpoNoticia"]')
-            if article_body_list:
-                article_body = article_body_list[0].get_attribute('innerHTML')
-            else:
-                article_body_list = self.article_browser.find_elements_by_xpath('//*[@id="NoticiaPrincipal"]')
-                if article_body_list:
-                    article_body = article_body_list[0].get_attribute('innerHTML')
+        text = ''
 
-        if not (article_body == ''):
+        try:
+            title = self.browser.find_element_by_css_selector('h1.titular').text
+        except Exception:
+            print('Can not extract title from article')
+
+        try:
+            image = self.browser.find_element_by_css_selector('img#fotoPrincipalNoticia').get_attribute('src')
+        except Exception:
+            print('Can not extract image from article')
+        
+        try:
+            article_body = self.browser.find_element_by_css_selector('div#CuerpoNoticiav2').get_attribute('innerHTML')
+        except Exception:
+            try:
+                article_body = self.browser.find_element_by_css_selector('div#CuerpoNoticia').get_attribute('innerHTML')
+            except Exception:
+                try:
+                    article_body = self.browser.find_element_by_css_selector('div#NoticiaPrincipal').get_attribute('innerHTML')
+                except Exception:
+                    print('Can not extract text from article')
+
+        if article_body:
             text = clean_input(article_body)
-        else:
-            text = ''
 
         article = {
             'link': link,
@@ -159,11 +126,11 @@ class Scrapper:
 
         self.browser.get(self.url)
 
-        self.init_link_list()
+        links = self.init_link()
 
-        for index, link in enumerate(self.link_list):
-            self.article_browser.get(link)
+        for index, link in enumerate(links):
+            self.browser.get(link)
             articles_list.add_article(self.create_article(link))
 
-        articles_list.update()
+        #articles_list.update()
         return articles_list
