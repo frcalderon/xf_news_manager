@@ -58,11 +58,11 @@ class Scrapper:
             text = f'{text}{(index + 1)}. {song.text}\n'
 
         if download_link:
-            text = f'{text}Download: {download_link}'
+            text = f'{text}\n Download: {download_link} \n\n (For reupload , please reply and tag DjCyry)' 
         
         article = {
             'link': link,
-            'title': title,
+            'title': f'{title.encode("cp850", "replace").decode("cp850")}',
             'image': image,
             'text': f'{text.encode("cp850", "replace").decode("cp850")}',
             'date': datetime.now().strftime("%d/%m/%Y-%H:%M:%S"),
